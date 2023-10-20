@@ -19,7 +19,7 @@ int _printf(const char *format, ...)
 	va_start(lists, format);
 	while (*format)
 	{
-		if (*format != '%')
+		if (format != '%')
 		{
 			write(1, format, 1);
 			printed_char++;
