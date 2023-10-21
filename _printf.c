@@ -1,51 +1,42 @@
 #include "main.h"
-
-int _printf(const char *format, ...)
+/**
+ * _printf - is a function that selects the correct function to print.
+ * @format: identifier to look for.
+ * Return: the length of the string.
+ */
+int _printf(const char * const format, ...)
 {
-    int printed_char = 0;
+	work p[] = {
+		{"%s", _print_s}, {"%c", _print_c},
+		{"%%", _print_37},
+		{"%i", _print_i}, {"%d", _print_d}
+	};
 
-    va_list lists;
-    va_start(lists, format);
+	va_list args;
+	int i = 0, k, length = 0;
 
-    if (format == NULL)
-    {
-        return (-1);
-    }
+	va_start(args, format);
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
+		return (-1);
 
-    while (*format)
-    {
-        if (*format != '%')
-        {
-            write(1, format, 1);
-            printed_char++;
-        }
-        else
-        {
-            format++;
-            if (*format == '\0')
-                break;
-            if (*format == '%')
-            {
-                write(1, format, 1);
-                printed_char++;
-            }
-            else if (*format == 'c')
-            {
-                char c = va_arg(lists, int);
-                write(1, &c, 1);
-                printed_char++;
-            }
-            else if (*format == 's')
-            {
-                char *hen = va_arg(lists, char *);
-                int str_len = strlen(hen); // Use strlen to get the string length
-                write(1, hen, str_len);
-                printed_char += str_len;
-            }
-        }
-        format++;
-    }
-
-    va_end(lists);
-    return (printed_char);
+Here:
+	while (format[i] != '\0')
+	{
+		k = 4;
+		while (k >= 0)
+		{
+			if (p[k].p[0] == format[i] && p[k].ph[1] == format[i + 1])
+			{
+				length += p[k].funct(args);
+				i = i + 2;
+				goto Here;
+			}
+			k--;
+		}
+		_putchar(format[i]);
+		length++;
+		i++;
+	}
+	va_end(args);
+	return (length);
 }
