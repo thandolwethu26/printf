@@ -25,7 +25,7 @@ Here:
 		k = 4;
 		while (k >= 0)
 		{
-			if (p[k].p[0] == format[i] && p[k].ph[1] == format[i + 1])
+			if (p[k].q[0] == format[i] && p[k].q[1] == format[i + 1])
 			{
 				length += p[k].funct(args);
 				i = i + 2;

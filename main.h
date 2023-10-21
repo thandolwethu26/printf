@@ -13,7 +13,7 @@
 
 typedef struct format
 {
-	char *p;
+	char *q;
 	int (*funct)();
 } work;
 
